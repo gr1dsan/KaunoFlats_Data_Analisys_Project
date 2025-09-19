@@ -40,7 +40,7 @@
   - Find **heating cost differences**.  
   - Compare **modern vs. old buildings amount**.  
   - Calculate **crime rate data** to measure safety.  
-  ![Average_crime_bar](readme_pics/Avg_crime_num.png)
+  ![Average_crime_bar](readme_pics/Average_crime_num.png)
 
   - Evaluate **average flat sizes and number of rooms**.
   - Find out if **bigger price is getting you begger area**.
