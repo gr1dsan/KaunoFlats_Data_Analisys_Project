@@ -1,6 +1,6 @@
 # KAUNOFLATS
 
-**Kauno Flats** is a data-driven Flask web dashboard that helps users find the best district to live in Kaunas, Lithuania. It was built as a complete project pipeline - starting from data collection with a custom scraper, through cleaning and analysis, and finally developing a web app to make insights easily accessible.
+**KAUNOFLATS** is a data-driven Flask web dashboard that helps users find the best district to live in Kaunas, Lithuania. It was built as a complete project pipeline - starting from data collection with a custom scraper, through cleaning and analysis, and finally developing a web app to make insights easily accessible.
 
 ![Dashboard](readme_pics/Dashboard.png)
 > Dashboard design 
