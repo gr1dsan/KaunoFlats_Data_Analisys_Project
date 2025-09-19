@@ -1,0 +1,335 @@
+body{
+    background-color: white;
+}
+
+#topbar {
+    display: flex;
+    justify-content: flex-start;  
+    align-items: center; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+#topbar h2{
+
+    margin-top: 18px;  
+    margin-left: 20px;        
+    text-align: left;   
+    color: #003153;      
+    font-style: normal;
+    font-family: 'Roboto', sans-serif;
+}
+
+#topbar a{
+    margin-left: 30px;
+    color: rgb(86, 86, 86);
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal; 
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;        
+    width: 100%;
+    max-width: 1400px;
+    margin: 20px auto;
+    gap: 40px;                     
+    font-family: Arial, sans-serif;
+    padding-top: 10px;
+    margin-left: 300px;
+    
+}
+
+#data {
+    display: flex;
+    gap: 20px;
+    width:auto;                 
+}
+
+#categories {
+    background-color: rgba(0, 150, 255, 0.25);
+    position: fixed;        
+    top: 0;                  
+    left: 0;                 
+    height: 100vh;         
+    width: 250px;          
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    padding-top: 100px;
+    overflow-y: auto;        
+    z-index: 1000;         
+}
+
+#categories form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Arial, sans-serif; 
+    color: #2c3e50;
+}
+#categories h1 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#categories h4 {
+    margin: 0 0 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#categories select {
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 8px;
+    border: 1px solid #2c3e50;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#okbutton {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #0096FF;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#okbutton:hover {
+    background-color: lightskyblue;
+    transform: translateY(-1px);
+}
+
+#results {
+    width: 600px;
+    height: 600px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    padding-top: 80px;
+    text-align: center;
+}
+#header{
+    margin-bottom: 20px;
+}
+#header h1{
+    margin: 0px;
+}
+/* District name */
+#results h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#results h3{
+    margin-top: 250px;          
+    text-align: center;   
+    color: black;      
+    font-style: normal;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal; 
+}
+/* Prices and chart block */
+#prices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+#avg_price {
+    background: rgba(229, 228, 226, 0.3);
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0);
+}
+
+#avg_price h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+#avg_price h1 {
+    margin: 5px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#left-col{
+    margin-right: 10px;
+}
+
+#chart-container {
+    background: rgba(229, 228, 226, 0.3);
+    border-radius: 10px;
+    padding: 5px;
+    height: 280px;
+}
+
+#characteristics {
+    align-self: flex-start;  
+    text-align: left;
+    margin-top: 10px;
+    padding: 20px;
+    border: 2px solid rgba(0, 150, 255, 0.5);
+    background:  rgba(0, 150, 255, 0.1);
+    border-radius: 10px;
+    justify-content: space-between;
+    gap: 30px;
+    font-family: Arial, sans-serif;
+}
+
+#pros, #cons {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#pros{
+    margin-bottom: 20px;
+}
+
+#pros h2{
+    font-size: 16px;
+    font-weight: bold;
+    color: #55b86e;
+    text-align: left;
+    margin-bottom: 1px;
+    padding-bottom: 5px;
+}
+
+#cons h2{
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff6961;
+    text-align: left;
+    margin-bottom: 1px;
+    padding-bottom: 5px; 
+}
+
+#cons h3, #pros h3{
+    margin: 0;           
+    text-align: left;    
+    color: black;       
+    font-style: normal;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal; 
+}
+
+#results h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #444;
+}
+
+
+#avg_rooms_number, #avg_area{
+    margin-top: 10px;
+}
+
+#mapinfo{
+    min-height: 630px; 
+    width: 630px;
+    margin-top: 50px;
+}
+
+#map {
+    flex: 1;   
+    margin-top: 50px;                   
+    min-height: 550px;          
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    transition: opacity 0.3s ease-in-out, background-size 0.5s ease-in-out;
+}
+#map.fade-out {
+    opacity: 0;
+}
+
+#map:hover {
+  background-size: 130%;  
+}
+
+#results-container {
+    display: flex 2;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; 
+}
+
+#results-data {
+    flex: 2; 
+}
+
+#pie-container {
+    flex: 1; 
+    display: flex;
+    height: 280px;
+    justify-content: center;
+    align-items: center;
+    background: rgba(229, 228, 226, 0.3);
+    border-radius: 10px;
+    padding: 5px;
+    height: 280px;
+    margin-top: 5px;
+}
+
+#avg_area {
+    background: rgba(229, 228, 226, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+#avg_heating_price {
+    background: rgba(229, 228, 226, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+#avg_rooms_number {
+    background: rgba(229, 228, 226, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+#data-layout{
+    display: flex;
+}
+
+#characteristics h3{
+    font-size: 15px;
+    color: black;
+    font-style: normal;
+    text-align: left;
+}
