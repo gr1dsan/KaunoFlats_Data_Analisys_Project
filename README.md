@@ -43,7 +43,7 @@
   ![Average_crime_bar](readme_pics/Average_crime_num.png)
 
   - Evaluate **average flat sizes and number of rooms**.
-  - Find out if **bigger price is getting you begger area**.
+  - Find out if **bigger price is getting you bigger area**.
   ![Price-area_bar](readme_pics/Price-area_comp.png)
 
   - Understand if **expensive disctricts are safer**.
