@@ -28,7 +28,7 @@
   - Normalized prices, sizes, and heating values into consistent units.  
   - Standardized district names.  
   - Converted categorical values into usable formats.  
-- The result was a **clean dataset** ready for analysis [link to dataset](https://kaggle.com/datasets/892818a3efd222a9a2e0260b4eedadb73e8b4d535c7d95d75c5790a758ce46f1), for development dasboard was used another dataset build from this one.
+- The result was a **clean dataset** ready for analysis that I uploaded to **Kaggle.com** [link to dataset](https://kaggle.com/datasets/892818a3efd222a9a2e0260b4eedadb73e8b4d535c7d95d75c5790a758ce46f1), for development dasboard was used another dataset build from this one.
 ---
 
 ### 3. Data Analysis & Exploration
