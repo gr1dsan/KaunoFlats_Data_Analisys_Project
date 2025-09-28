@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KaunoFlats</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='title.css') }}">
+</head>
+<body>
+  <div id="topbar">
+    <div id="name">
+      <a href="{{ url_for('redirection') }}">
+        <h2>KAUNOFL▲TS</h2>
+      </a>
+    </div>
+    <div id="links">
+      <a href="https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git">Project Repository</a>
+      <a href="https://kaggle.com/datasets/892818a3efd222a9a2e0260b4eedadb73e8b4d535c7d95d75c5790a758ce46f1">Dataset Link</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Find the best district for you</h1>
+    <p>Select your priorities and evaluate districts in Kaunas to find the one that best suits your needs, with informative data and visualizations.</p>
+    <a href="{{ url_for('main') }}">
+      <button id="okbutton">Get Started</button>
+    </a>
+  </div>
+
+  <div class="footer-wave"></div>
+</body>
+</html>
