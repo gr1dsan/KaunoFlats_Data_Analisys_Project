@@ -15,7 +15,7 @@ body{
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     z-index: 1001;
 }
-#topbar h2{
+#name h2{
 
     margin-top: 18px;  
     margin-left: 20px;        
@@ -25,12 +25,17 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-#topbar a{
+#name a{
+    text-decoration: none;
+}
+
+#link a{
     margin-left: 30px;
     color: rgb(86, 86, 86);
     font-size: 15px;
     font-family: 'Roboto', sans-serif;
     font-weight: normal; 
+    text-decoration: none;
 }
 
 #content {
@@ -54,7 +59,7 @@ body{
 }
 
 #categories {
-    background-color: rgba(0, 150, 255, 0.25);
+    background-color: rgba(0, 150, 255, 0.3);
     position: fixed;        
     top: 0;                  
     left: 0;                 
@@ -149,8 +154,8 @@ body{
 #results h3{
     margin-top: 250px;          
     text-align: center;   
-    color: black;      
-    font-style: normal;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
     font-family: 'Roboto', sans-serif;
     font-weight: normal; 
 }
@@ -264,7 +269,7 @@ body{
 #map {
     flex: 1;   
     margin-top: 50px;                   
-    min-height: 550px;          
+    min-height: 550px;    
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -281,7 +286,7 @@ body{
 }
 
 #map:hover {
-  background-size: 130%;  
+  background-size: 110%;  
 }
 
 #results-container {

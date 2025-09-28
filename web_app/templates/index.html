@@ -10,7 +10,9 @@
 
     <div id="topbar">
         <div id="name">
-            <h2>KAUNOFL▲TS</h2>
+            <a href="{{ url_for('redirection') }}">
+                <h2>KAUNOFL▲TS</h2>
+            </a>
         </div>
         <div id="link">
             <a href="https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git">Project Repository</a>
@@ -129,7 +131,17 @@
     const priority2 = document.getElementById('priority2');
 
     priority1.addEventListener('change', function() {
+        const selectedValue = this.value;
+
         priority2.disabled = !this.value;
+
+        for (let option of priority2.options) {
+            option.disabled = option.value === selectedValue;
+        }
+
+       if (priority2.value === selectedValue) {
+           priority2.value = '';
+        }
     });
 
     function renderChart() {

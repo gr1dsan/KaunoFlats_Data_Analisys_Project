@@ -69,8 +69,12 @@ def generate_pros_cons(row: pd.Series) -> tuple[list[str], list[str]]:
             cons.append(f"Bad {description}")
     return pros, cons
 
+@app.route('/')
+def redirection():
+    return render_template('title.html')
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/dashboard', methods=['GET', 'POST'])
 def main():
     global selected_df_global
     res = avg_cost = avg_crime = avg_area = avg_heating_price = cc_distance = None
