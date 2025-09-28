@@ -3,6 +3,9 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
+# Global variable to store selected DataFrame (instead of Data2.csv)
+selected_df_global = None
+
 # Constants
 OPTIONS = [
     'Cheapest', 'Safest', 'Closest to the city center', 'Biggest by area',
@@ -62,15 +65,16 @@ def generate_pros_cons(row: pd.Series) -> tuple[list[str], list[str]]:
     pros, cons = [], []
     for col, description in PROS_CONS_MAPPING.items():
         value = row[col]
-        if value <= 3:
+        if value <= 5:
             pros.append(f"Great {description}")
-        elif value >= 9:
+        elif value >= 7:
             cons.append(f"Bad {description}")
     return pros, cons
 
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
+    global selected_df_global
     res = avg_cost = avg_crime = avg_area = avg_heating_price = cc_distance = None
     pros, cons = [], []
 
@@ -79,23 +83,30 @@ def main():
         second_prior = request.form.get('priority2')
 
         if first_prior and second_prior:
-            df = pd.read_csv('web_app/data/Data.csv')
+            df = pd.read_csv('data/Data.csv')
             df = calculate_final_score(df, first_prior, second_prior)
 
-            best_district_row = df.groupby('District', as_index=False)['Final'].sum().sort_values('Final').iloc[0]
+            best_district_row = (
+                df.groupby('District', as_index=False)['Final']
+                .sum()
+                .sort_values('Final')
+                .iloc[0]
+            )
             res = best_district_row['District']
 
-            selected_df = df[df['District'] == res]
-            selected_df.to_csv('web_app/data/Data2.csv', index=False)
+            # Store in global variable instead of Data2.csv
+            selected_df_global = df[df['District'] == res]
 
-            avg_cost = selected_df['Average_price'].mean()
-            avg_crime = round(selected_df['Average_crimes'].mean())
-            avg_heating_price = selected_df['Average_heating_price'].mean()
-            avg_area = selected_df['Average_area'].mean()
+            avg_cost = selected_df_global['Average_price'].mean()
+            avg_crime = round(selected_df_global['Average_crimes'].mean())
+            avg_heating_price = selected_df_global['Average_heating_price'].mean()
+            avg_area = selected_df_global['Average_area'].mean()
 
-            cc_distance = city_center_description(selected_df['Ranked_by_CC_distance'].mean())
+            cc_distance = city_center_description(
+                selected_df_global['Ranked_by_CC_distance'].mean()
+            )
 
-            pros, cons = generate_pros_cons(selected_df.iloc[0])
+            pros, cons = generate_pros_cons(selected_df_global.iloc[0])
         else:
             print('Priority selection missing.')
 
@@ -108,7 +119,11 @@ def main():
 
 @app.route('/chart_data', methods=['GET', 'POST'])
 def chart_data():
-    df = pd.read_csv('web_app/data/Data2.csv')
+    global selected_df_global
+    if selected_df_global is None:
+        return jsonify({'error': 'No data selected yet'}), 400
+
+    df = selected_df_global
     return jsonify({
         'under_300': df['under_300_count'].tolist(),
         'from_300_to_600': df['from_300_to_600'].tolist(),
@@ -117,6 +132,7 @@ def chart_data():
         'number_of_modern_builds': df['Modern'].tolist(),
         'number_of_old_builds': df['Old'].tolist()
     })
+
 
 if __name__ == '__main__':
     app.run(debug=True)
