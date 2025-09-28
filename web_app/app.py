@@ -3,10 +3,8 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# Global variable to store selected DataFrame (instead of Data2.csv)
 selected_df_global = None
 
-# Constants
 OPTIONS = [
     'Cheapest', 'Safest', 'Closest to the city center', 'Biggest by area',
     'Biggest number of rooms', 'Least heating price'
@@ -94,7 +92,6 @@ def main():
             )
             res = best_district_row['District']
 
-            # Store in global variable instead of Data2.csv
             selected_df_global = df[df['District'] == res]
 
             avg_cost = selected_df_global['Average_price'].mean()
