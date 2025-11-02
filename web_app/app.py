@@ -85,7 +85,7 @@ def main():
         second_prior = request.form.get('priority2')
 
         if first_prior and second_prior:
-            df = pd.read_csv('data_analisys/Data.csv')
+            df = pd.read_csv('web_app/data/Data.csv')
             df = calculate_final_score(df, first_prior, second_prior)
 
             best_district_row = (
