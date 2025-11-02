@@ -21,12 +21,12 @@ PRIORITY_COLUMNS = {
 }
 
 PROS_CONS_MAPPING = {
-    'Rank_by_prices': 'rent price',
-    'Rank_by_crimes': 'safety',
-    'Ranked_by_CC_distance': 'distance to city center',
-    'Rank_by_area': 'flat area',
-    'Average_rooms_number_ranked': 'number of rooms',
-    'Heating_prices_rank': 'heating price'
+    'Rank_by_prices': 'Rent price',
+    'Rank_by_crimes': 'Safety',
+    'Ranked_by_CC_distance': 'Distance to city center',
+    'Rank_by_area': 'Flat area',
+    'Average_rooms_number_ranked': 'Number of rooms',
+    'Heating_prices_rank': 'Heating price'
 }
 
 
@@ -64,9 +64,9 @@ def generate_pros_cons(row: pd.Series) -> tuple[list[str], list[str]]:
     for col, description in PROS_CONS_MAPPING.items():
         value = row[col]
         if value <= 5:
-            pros.append(f"Great {description}")
+            pros.append(f"{description}")
         elif value >= 7:
-            cons.append(f"Bad {description}")
+            cons.append(f"{description}")
     return pros, cons
 
 @app.route('/')
@@ -85,7 +85,7 @@ def main():
         second_prior = request.form.get('priority2')
 
         if first_prior and second_prior:
-            df = pd.read_csv('data/Data.csv')
+            df = pd.read_csv('data_analisys/Data.csv')
             df = calculate_final_score(df, first_prior, second_prior)
 
             best_district_row = (

@@ -90,7 +90,7 @@ body {
   height: 300px;
   background: linear-gradient(to top, rgba(0, 150, 255, 0.7), transparent);
   transform-origin: bottom; /* scale from bottom */
-  animation: breathe 6s ease-in-out infinite, grow 6s ease-in-out infinite;
+  animation: breathe 5s ease-in-out infinite, grow 5s ease-in-out infinite;
 }
 
 @keyframes breathe {
@@ -99,5 +99,5 @@ body {
 
 @keyframes grow {
   0%, 100% { transform: scaleY(0.5); }
-  50% { transform: scaleY(1); }
+  50% { transform: scaleY(1.2); }
 }
