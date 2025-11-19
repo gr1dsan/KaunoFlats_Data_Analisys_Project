@@ -31,7 +31,6 @@ PROS_CONS_MAPPING = {
 
 
 def calculate_final_score(df: pd.DataFrame, first: str, second: str) -> pd.DataFrame:
-    """Compute weighted final score for each row based on priorities."""
     weights = {first: 0.7, second: 0.3}
     df['Final'] = 0
     for priority, weight in weights.items():
@@ -42,7 +41,6 @@ def calculate_final_score(df: pd.DataFrame, first: str, second: str) -> pd.DataF
 
 
 def city_center_description(rank: float) -> str:
-    """Return human-readable city center distance description."""
     if rank <= 1:
         return 'In the center'
     elif rank <= 3:
@@ -59,7 +57,6 @@ def city_center_description(rank: float) -> str:
 
 
 def generate_pros_cons(row: pd.Series) -> tuple[list[str], list[str]]:
-    """Generate pros and cons based on ranking values."""
     pros, cons = [], []
     for col, description in PROS_CONS_MAPPING.items():
         value = row[col]
@@ -85,7 +82,7 @@ def main():
         second_prior = request.form.get('priority2')
 
         if first_prior and second_prior:
-            df = pd.read_csv('data/Data.csv')
+            df = pd.read_csv('web_app/data/Data.csv')
             df = calculate_final_score(df, first_prior, second_prior)
 
             best_district_row = (
