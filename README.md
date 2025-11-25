@@ -82,14 +82,14 @@ git clone https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git
 
 2. **Enter the repo folder**:
 ```bash
-cd KaunoFlats_Data_Analisys_Project
+cd KaunoFlats_Data_Analisys_Project/web_app
 ```
 
 3. **Set up your virtual enviroment**:
 
 For Mac/Linux:
 ```bash
-python3 venv env
+python3 -m venv env
 source env/bin/activate
 ```
 
