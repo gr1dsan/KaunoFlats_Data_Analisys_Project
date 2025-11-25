@@ -82,7 +82,7 @@ git clone https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git
 
 2. **Enter the repo folder**:
 ```bash
-cd KaunoFlats_Data_Analisys_Project/web_app
+cd KaunoFlats_Data_Analisys_Project
 ```
 
 3. **Set up your virtual enviroment**:
@@ -106,6 +106,7 @@ pip install -r requirements.txt
 
 5. **Run the program**:
 ```bash
+cd web_app
 python app.py
 ```
 
