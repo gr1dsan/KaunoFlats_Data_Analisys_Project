@@ -120,7 +120,7 @@
                         </div>
 
                         <div id="cons">
-                            <h2>Negativ aspects:</h2>
+                            <h2>Negative aspects:</h2>
                             {% for item in cons %}
                                 <h3>• {{ item }}</h3>
                             {% endfor %}
@@ -173,17 +173,16 @@
 
     <script>
     window.addEventListener("load", function () {
+    const div = document.getElementById('map');
 
-        const div = document.getElementById('map');
-
+    requestAnimationFrame(() => {
         div.classList.add('fade-out');
 
         setTimeout(() => {
-            div.style.backgroundImage =
-                "url('{{ url_for('static', filename='pics/Kaunas_map.png') }}')";
+            div.style.backgroundImage = "...";
             div.classList.remove('fade-out');
-        }, 600);
-
+        }, 300);
+        });
     });
     </script>
 

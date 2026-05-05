@@ -137,9 +137,7 @@ body{
     gap: 15px;
     padding-top: 80px;
     text-align: center;
-}
 
-#results {
     opacity: 1;
     transform: translateY(20px);
 }
