@@ -154,18 +154,27 @@
     <script>
     window.addEventListener("load", function () {
 
-        renderChart();
+        requestAnimationFrame(() => {
 
-        const div = document.getElementById('map');
+            renderChart();
 
-        div.classList.add('fade-out');
+            const div = document.getElementById('map');
+            div.classList.add('fade-out');
 
-        setTimeout(() => {
-            div.style.backgroundImage =
-                "url('{{ url_for('static', filename='pics/' ~ res ~ '.png') }}')";
-            div.classList.remove('fade-out');
-        }, 300);
+            requestAnimationFrame(() => {
 
+                setTimeout(() => {
+
+                    div.style.backgroundImage =
+                        "url('{{ url_for('static', filename='pics/' ~ res ~ '.png') }}')";
+
+                    void div.offsetWidth;
+
+                    div.classList.remove('fade-out');
+
+                }, 300);
+            });
+        });
     });
     </script>
 
@@ -173,15 +182,22 @@
 
     <script>
     window.addEventListener("load", function () {
-    const div = document.getElementById('map');
 
-    requestAnimationFrame(() => {
+        const div = document.getElementById('map');
         div.classList.add('fade-out');
 
-        setTimeout(() => {
-            div.style.backgroundImage = "...";
-            div.classList.remove('fade-out');
-        }, 300);
+        requestAnimationFrame(() => {
+
+            setTimeout(() => {
+
+                div.style.backgroundImage =
+                    "url('{{ url_for('static', filename='pics/Kaunas_map.png') }}')";
+
+                void div.offsetWidth;
+
+                div.classList.remove('fade-out');
+
+            }, 600);
         });
     });
     </script>
