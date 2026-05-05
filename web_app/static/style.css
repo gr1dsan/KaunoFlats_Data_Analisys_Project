@@ -2,6 +2,16 @@ body{
     background-color: white;
 }
 
+#page-overlay {
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
 #topbar {
     display: flex;
     justify-content: flex-start;  
@@ -16,7 +26,6 @@ body{
     z-index: 1001;
 }
 #name h2{
-
     margin-top: 18px;  
     margin-left: 20px;        
     text-align: left;   
@@ -49,7 +58,6 @@ body{
     font-family: Arial, sans-serif;
     padding-top: 10px;
     margin-left: 300px;
-    
 }
 
 #data {
@@ -146,6 +154,11 @@ body{
     animation: fadeSlideIn 1s ease forwards;
 }
 
+#results:not(.show) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 @keyframes fadeSlideIn {
     from {
         opacity: 0;
@@ -157,14 +170,13 @@ body{
     }
 }
 
-
 #header{
     margin-bottom: 20px;
 }
 #header h1{
     margin: 0px;
 }
-/* District name */
+
 #results h2 {
     margin: 0;
     font-size: 20px;
@@ -179,7 +191,7 @@ body{
     font-family: 'Roboto', sans-serif;
     font-weight: normal; 
 }
-/* Prices and chart block */
+
 #prices {
     display: flex;
     flex-direction: column;
@@ -275,7 +287,6 @@ body{
     color: #444;
 }
 
-
 #avg_rooms_number, #avg_area{
     margin-top: 10px;
 }
@@ -295,11 +306,10 @@ body{
     background-repeat: no-repeat;
     opacity: 1;
     overflow: hidden;
-
     border-radius: 10px;
-
     transition: opacity 0.6s ease-in-out, background-size 0.5s ease-in-out;
 }
+
 #map.fade-out {
     opacity: 0;
 }
