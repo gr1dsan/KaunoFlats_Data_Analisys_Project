@@ -8,9 +8,6 @@
 </head>
 
 <body>
-
-    <div id="page-overlay"></div>
-
     <div id="topbar">
         <div id="name">
             <a href="{{ url_for('redirection') }}">
@@ -55,7 +52,9 @@
         </form>
     </div>
 
-    <div id="content">
+    <div id="content" style="position: relative;">
+
+        <div id="page-overlay" class="hidden"></div>
 
         <div id="data">
 
@@ -156,16 +155,20 @@
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const mapDiv = document.getElementById('map');
+        const overlay = document.getElementById('page-overlay');
+
         const imgSrc = "{{ url_for('static', filename='pics/' ~ res ~ '.png') }}";
+
+        overlay.classList.remove('hidden');
+
         mapDiv.style.backgroundImage = "url('" + imgSrc + "')";
         renderChart();
 
         const img = new Image();
         img.src = imgSrc;
+
         img.onload = function () {
-            const overlay = document.getElementById('page-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 500);
+            overlay.classList.add('hidden');
         };
     });
     </script>
@@ -175,15 +178,19 @@
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const mapDiv = document.getElementById('map');
+        const overlay = document.getElementById('page-overlay');
+
         const imgSrc = "{{ url_for('static', filename='pics/Kaunas_map.png') }}";
+
+        overlay.classList.remove('hidden');
+
         mapDiv.style.backgroundImage = "url('" + imgSrc + "')";
 
         const img = new Image();
         img.src = imgSrc;
+
         img.onload = function () {
-            const overlay = document.getElementById('page-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 500);
+            overlay.classList.add('hidden');
         };
     });
     </script>
