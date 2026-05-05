@@ -122,13 +122,16 @@ def chart_data():
         return jsonify({'error': 'No data selected yet'}), 400
 
     df = selected_df_global
+    total_prices = (df['under_300_count'] + df['from_300_to_600'] + df['from_600_to_900'] + df['above_900_count']) / 100
+    total_buildings = (df['Modern'] + df['Old']) / 100
+
     return jsonify({
-        'under_300': df['under_300_count'].tolist(),
-        'from_300_to_600': df['from_300_to_600'].tolist(),
-        'from_600_to_900': df['from_600_to_900'].tolist(),
-        'above_900': df['above_900_count'].tolist(),
-        'number_of_modern_builds': df['Modern'].tolist(),
-        'number_of_old_builds': df['Old'].tolist()
+        'under_300': ((df['under_300_count']/total_prices).round(1)).tolist(),
+        'from_300_to_600': ((df['from_300_to_600']/total_prices).round(1)).tolist(),
+        'from_600_to_900': ((df['from_600_to_900']/total_prices).round(1)).tolist(),
+        'above_900': ((df['above_900_count']/total_prices).round(1)).tolist(),
+        'number_of_modern_builds': ((df['Modern']/total_buildings).round(1)).tolist(),
+        'number_of_old_builds': ((df['Old']/total_buildings).round(1)).tolist()
     })
 
 

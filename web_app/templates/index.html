@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 </head>
+
 <body>
 
     <div id="topbar">
@@ -14,9 +15,11 @@
                 <h2>KAUNOFL▲TS</h2>
             </a>
         </div>
+
         <div id="link">
             <a href="https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git">Project Repository</a>
         </div>
+
         <div id="link">
             <a href="https://kaggle.com/datasets/892818a3efd222a9a2e0260b4eedadb73e8b4d535c7d95d75c5790a758ce46f1">Dataset Link</a>
         </div>
@@ -25,7 +28,7 @@
     <div id="categories">
         <form method="POST">
             <h1>Choose your priorities</h1>
-            
+
             <div id="1st">
                 <h4>1st priority</h4>
                 <select id="priority1" name="priority1">
@@ -53,11 +56,13 @@
     <div id="content">
 
         <div id="data">
-        
-            <div id="results">
-            {% if res %}
+
+            <div id="results" class="{% if res %}show{% endif %}">
+
+                {% if res %}
+
                 <div id="results-container">
-                    
+
                     <div id="header">
                         <h1>{{ res }}</h1>
                         <h4>{{ cc_distance }}</h4>
@@ -67,6 +72,7 @@
 
                         <div id="left-col">
                             <div id="prices">
+
                                 <div id="avg_price">
                                     <h4>Average price per month:</h4>
                                     <h1>{{ avg_cost }} €</h1>
@@ -75,46 +81,61 @@
                                 <div id="chart-container">
                                     <canvas id="expensesChart" width="400" height="400"></canvas>
                                 </div>
+
                                 <div id="avg_heating_price">
                                     <h4>Average heating price per month:</h4>
                                     <h2>{{ avg_heating_price }} €</h2>
                                 </div>
+
                             </div>
                         </div>
 
                         <div id="right-col">
+
                             <div id="pie-container">
                                 <canvas id="expensesPieChart" width="400" height="400"></canvas>
                             </div>
+
                             <div id="avg_area">
                                 <h4>Average area:</h4>
                                 <h2>{{ avg_area }} m²</h2>
                             </div>
+
                             <div id="avg_rooms_number">
                                 <h4>Average number of crimes per month:</h4>
                                 <h2>{{ avg_crime }}</h2>
                             </div>
+
                         </div>
 
                     </div>
+
                     <div id="characteristics">
+
                         <div id="pros">
                             <h2>Positive aspects:</h2>
-                            {% for item in pros%}
-                              <h3>• {{item}}</h3>
-                            {%endfor%}
+                            {% for item in pros %}
+                                <h3>• {{ item }}</h3>
+                            {% endfor %}
                         </div>
+
                         <div id="cons">
                             <h2>Negativ aspects:</h2>
-                            {% for item in cons%}
-                              <h3>• {{item}}</h3>
-                            {%endfor%}
+                            {% for item in cons %}
+                                <h3>• {{ item }}</h3>
+                            {% endfor %}
                         </div>
+
                     </div>
+
                 </div>
-            {% else %}
+
+                {% else %}
+
                 <h3>Nothing here yet :o</h3>
-            {% endif %}
+
+                {% endif %}
+
             </div>
 
         </div>
@@ -122,111 +143,51 @@
         <div id="mapinfo">
             <div id="map"></div>
         </div>
-    
+
     </div>
 
+    <script src="{{ url_for('static', filename='priorities.js') }}"></script>
+    <script src="{{ url_for('static', filename='charts.js') }}"></script>
+
+    {% if res %}
+
     <script>
-    let instance = null;
-    const priority1 = document.getElementById('priority1');
-    const priority2 = document.getElementById('priority2');
+    window.addEventListener("load", function () {
 
-    priority1.addEventListener('change', function() {
-        const selectedValue = this.value;
+        renderChart();
 
-        priority2.disabled = !this.value;
+        const div = document.getElementById('map');
 
-        for (let option of priority2.options) {
-            option.disabled = option.value === selectedValue;
-        }
+        div.classList.add('fade-out');
 
-       if (priority2.value === selectedValue) {
-           priority2.value = '';
-        }
+        setTimeout(() => {
+            div.style.backgroundImage =
+                "url('{{ url_for('static', filename='pics/' ~ res ~ '.png') }}')";
+            div.classList.remove('fade-out');
+        }, 300);
+
     });
-
-    function renderChart() {
-        fetch(`/chart_data`)
-        .then(response => response.json())
-        .then(data => {
-            // BAR CHART
-            const ctxBar = document.getElementById('expensesChart').getContext('2d');
-            if (instance) instance.destroy();
-            instance = new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: ["Under 300 €", "300-600 €", "600-900 €", "900+ €"],
-                    datasets: [{
-                        data: [
-                            data.under_300[0],
-                            data.from_300_to_600[0],
-                            data.from_600_to_900[0],
-                            data.above_900[0]
-                        ],
-                        backgroundColor: '#89CFF0',
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { display: false }, ticks: { display: false } },
-                        y: { grid: { display: false }, ticks: { display: false } }
-                    },
-                    layout: { padding: 10 }
-                }
-            });
-
-            // PIE CHART
-            const ctxPie = document.getElementById('expensesPieChart').getContext('2d');
-            new Chart(ctxPie, {
-                type: 'pie',
-                data: {
-                    labels: ['Modern buildings offers', 'Old buildings offers'],
-                    datasets: [{
-                        data: [data.number_of_modern_builds[0], data.number_of_old_builds[0]],
-                        backgroundColor: ['#89CFF0', '#FFB347'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { position: 'bottom' } }
-                }
-            });
-        });
-    }
     </script>
 
-{% if res %}
-<script src="script.js"></script>
-<script>
-window.addEventListener("load", function() {
-    renderChart();
+    {% else %}
 
-    const div = document.getElementById('map');
+    <script>
+    window.addEventListener("load", function () {
 
-    div.classList.add('fade-out');
+        const div = document.getElementById('map');
 
-    // swap background after fade
-    setTimeout(() => {
-        div.style.backgroundImage = "url('{{ url_for('static', filename='pics/' ~ res ~ '.png') }}')";
-        div.classList.remove('fade-out');
-    }, 300);
-});
-</script>
-{% else %}
-<script>
-    const div = document.getElementById('map');
+        div.classList.add('fade-out');
 
-    div.classList.add('fade-out');
+        setTimeout(() => {
+            div.style.backgroundImage =
+                "url('{{ url_for('static', filename='pics/Kaunas_map.png') }}')";
+            div.classList.remove('fade-out');
+        }, 600);
 
-    setTimeout(() => {
-        div.style.backgroundImage = "url('{{ url_for('static', filename='pics/Kaunas_map.png') }}')";
-        div.classList.remove('fade-out');
-    }, 600);
-</script>
-{% endif %}
+    });
+    </script>
+
+    {% endif %}
 
 </body>
 </html>
