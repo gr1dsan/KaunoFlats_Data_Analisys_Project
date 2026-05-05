@@ -152,38 +152,42 @@
     {% if res %}
 
     <script>
-    window.addEventListener("load", function () {
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Set image immediately so it starts loading right away
+        const div = document.getElementById('map');
+        div.style.backgroundImage =
+            "url('{{ url_for('static', filename='pics/' ~ res ~ '.png') }}')";
+
+        // Start hidden, fade in once image is loaded
+        div.style.opacity = 0;
+        const img = new Image();
+        img.src = "{{ url_for('static', filename='pics/' ~ res ~ '.png') }}";
+        img.onload = function () {
+            div.style.transition = 'opacity 0.6s ease-in-out';
+            div.style.opacity = 1;
+        };
 
         renderChart();
-
-        const div = document.getElementById('map');
-
-        div.classList.add('fade-out');
-
-        setTimeout(() => {
-            div.style.backgroundImage =
-                "url('{{ url_for('static', filename='pics/' ~ res ~ '.png') }}')";
-            div.classList.remove('fade-out');
-        }, 300);
-
     });
     </script>
 
     {% else %}
 
     <script>
-    window.addEventListener("load", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
         const div = document.getElementById('map');
+        div.style.backgroundImage =
+            "url('{{ url_for('static', filename='pics/Kaunas_map.png') }}')";
 
-        div.classList.add('fade-out');
-
-        setTimeout(() => {
-            div.style.backgroundImage =
-                "url('{{ url_for('static', filename='pics/Kaunas_map.png') }}')";
-            div.classList.remove('fade-out');
-        }, 600);
-
+        div.style.opacity = 0;
+        const img = new Image();
+        img.src = "{{ url_for('static', filename='pics/Kaunas_map.png') }}";
+        img.onload = function () {
+            div.style.transition = 'opacity 0.6s ease-in-out';
+            div.style.opacity = 1;
+        };
     });
     </script>
 
