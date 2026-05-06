@@ -9,7 +9,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* OVERLAY */
 #page-overlay {
     position: fixed;
     inset: 0;
@@ -20,15 +19,12 @@ body {
     pointer-events: none;
 }
 
-/* MAIN CONTAINER */
 #main-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
 
-/* TOP BAR */
-/* HEADER - links moved to left near title */
 #header-container {
     display: flex;
     justify-content: flex-start;
@@ -68,8 +64,6 @@ body {
     text-decoration: none;
 }
 
-
-/* CONTENT ROW */
 #content-container {
     display: flex;
     flex-direction: row;
@@ -78,7 +72,6 @@ body {
     overflow: hidden;
 }
 
-/* LEFT: FILTERS */
 #filters-container {
     width: 250px;
     min-width: 250px;
@@ -139,12 +132,11 @@ body {
     transform: translateY(-1px);
 }
 
-/* MIDDLE: RESULTS */
 #results-container-outer {
     flex: 1;
     height: 100%;
     overflow-y: auto;
-    padding: 30px 20px;
+    padding: 20px;
 }
 
 #results {
@@ -318,7 +310,6 @@ body {
     font-size: 15px;
 }
 
-/* RIGHT: MAP */
 #map-container {
     flex: 1;
     height: 100%;
@@ -340,7 +331,6 @@ body {
     background-size: 110%;
 }
 
-/* RESULTS OVERLAY */
 #results-container-outer {
     position: relative;
 }
@@ -366,7 +356,6 @@ body {
     letter-spacing: 0.05em;
 }
 
-/* MAP OVERLAY */
 #map-container {
     position: relative;
 }

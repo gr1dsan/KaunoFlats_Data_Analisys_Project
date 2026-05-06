@@ -50,7 +50,6 @@ function renderChart(onReady) {
             }
         });
 
-        // Signal that both charts are done — MUST be inside .then()
         if (typeof onReady === 'function') onReady();
     });
 }
