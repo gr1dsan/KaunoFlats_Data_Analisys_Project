@@ -11,22 +11,10 @@
 
     <div id="main-container">
 
-        <!-- TOP BAR -->
-        <div id="header-container">
-            <div id="name">
-                <a href="{{ url_for('redirection') }}">
-                    <h2>KAUNOFL▲TS</h2>
-                </a>
-            </div>
-            <div id="links">
-                <a href="https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git">Project Repository</a>
-                <a href="https://kaggle.com/datasets/892818a3efd222a9a2e0260b4eedadb73e8b4d535c7d95d75c5790a758ce46f1">Dataset Link</a>
-            </div>
-        </div>
+        {% include 'header.html' %}
 
         <div id="content-container">
 
-            <!-- LEFT: FILTERS -->
             <div id="filters-container">
                 <form method="POST">
                     <h1>Choose your priorities</h1>
