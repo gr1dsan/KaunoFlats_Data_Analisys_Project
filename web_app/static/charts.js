@@ -1,4 +1,4 @@
-function renderChart() {
+function renderChart(onReady) {
     fetch(`/chart_data`)
     .then(response => response.json())
     .then(data => {
@@ -34,7 +34,7 @@ function renderChart() {
 
         // PIE CHART
         const ctxPie = document.getElementById('expensesPieChart').getContext('2d');
-         new Chart(ctxPie, {
+        new Chart(ctxPie, {
             type: 'pie',
             data: {
                 labels: ['Modern buildings offers', 'Old buildings offers'],
@@ -49,5 +49,8 @@ function renderChart() {
                 plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: {label: function(context) {return context.raw + ' %';}}}}
             }
         });
+
+        // Signal that both charts are done — MUST be inside .then()
+        if (typeof onReady === 'function') onReady();
     });
 }

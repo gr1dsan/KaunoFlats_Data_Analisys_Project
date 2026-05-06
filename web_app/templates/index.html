@@ -8,143 +8,153 @@
 </head>
 
 <body>
-    <div id="topbar">
-        <div id="name">
-            <a href="{{ url_for('redirection') }}">
-                <h2>KAUNOFL▲TS</h2>
-            </a>
+
+    <div id="main-container">
+
+        <!-- TOP BAR -->
+        <div id="header-container">
+            <div id="name">
+                <a href="{{ url_for('redirection') }}">
+                    <h2>KAUNOFL▲TS</h2>
+                </a>
+            </div>
+            <div id="links">
+                <a href="https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git">Project Repository</a>
+                <a href="https://kaggle.com/datasets/892818a3efd222a9a2e0260b4eedadb73e8b4d535c7d95d75c5790a758ce46f1">Dataset Link</a>
+            </div>
         </div>
 
-        <div id="link">
-            <a href="https://github.com/gr1dsan/KaunoFlats_Data_Analisys_Project.git">Project Repository</a>
-        </div>
+        <div id="content-container">
 
-        <div id="link">
-            <a href="https://kaggle.com/datasets/892818a3efd222a9a2e0260b4eedadb73e8b4d535c7d95d75c5790a758ce46f1">Dataset Link</a>
-        </div>
-    </div>
+            <!-- LEFT: FILTERS -->
+            <div id="filters-container">
+                <form method="POST">
+                    <h1>Choose your priorities</h1>
 
-    <div id="categories">
-        <form method="POST">
-            <h1>Choose your priorities</h1>
+                    <div id="1st">
+                        <h4>1st priority</h4>
+                        <select id="priority1" name="priority1">
+                            <option value="" selected disabled>Select a priority</option>
+                            {% for option in options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div id="1st">
-                <h4>1st priority</h4>
-                <select id="priority1" name="priority1">
-                    <option value="" selected disabled>Select a priority</option>
-                    {% for option in options %}
-                        <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
+                    <div id="2nd">
+                        <h4>2nd priority</h4>
+                        <select id="priority2" name="priority2" disabled>
+                            <option value="None">--</option>
+                            {% for option in options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button id="okbutton" type="submit">Find</button>
+                </form>
             </div>
 
-            <div id="2nd">
-                <h4>2nd priority</h4>
-                <select id="priority2" name="priority2" disabled>
-                    <option value="None">--</option>
-                    {% for option in options %}
-                        <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            <!-- MIDDLE: RESULTS -->
+            <div id="results-container-outer">
 
-            <button id="okbutton" type="submit">Find</button>
-        </form>
-    </div>
-
-    <div id="content" style="position: relative;">
-
-        <div id="page-overlay" class="hidden"></div>
-
-        <div id="data">
-
-            <div id="results" class="{% if res %}show{% endif %}">
-
-                {% if res %}
-
-                <div id="results-container">
-
-                    <div id="header">
-                        <h1>{{ res }}</h1>
-                        <h4>{{ cc_distance }}</h4>
-                    </div>
-
-                    <div id="data-layout">
-
-                        <div id="left-col">
-                            <div id="prices">
-
-                                <div id="avg_price">
-                                    <h4>Average price per month:</h4>
-                                    <h1>{{ avg_cost }} €</h1>
-                                </div>
-
-                                <div id="chart-container">
-                                    <canvas id="expensesChart" width="400" height="400"></canvas>
-                                </div>
-
-                                <div id="avg_heating_price">
-                                    <h4>Average heating price per month:</h4>
-                                    <h2>{{ avg_heating_price }} €</h2>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div id="right-col">
-
-                            <div id="pie-container">
-                                <canvas id="expensesPieChart" width="400" height="400"></canvas>
-                            </div>
-
-                            <div id="avg_area">
-                                <h4>Average area:</h4>
-                                <h2>{{ avg_area }} m²</h2>
-                            </div>
-
-                            <div id="avg_rooms_number">
-                                <h4>Average number of crimes per month:</h4>
-                                <h2>{{ avg_crime }}</h2>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div id="characteristics">
-
-                        <div id="pros">
-                            <h2>Positive aspects:</h2>
-                            {% for item in pros %}
-                                <h3>• {{ item }}</h3>
-                            {% endfor %}
-                        </div>
-
-                        <div id="cons">
-                            <h2>Negative aspects:</h2>
-                            {% for item in cons %}
-                                <h3>• {{ item }}</h3>
-                            {% endfor %}
-                        </div>
-
-                    </div>
-
+                <div id="results-overlay">
+                    <p>Calculating...</p>
                 </div>
 
-                {% else %}
+                <div id="results" class="{% if res %}show{% endif %}">
 
-                <h3>Nothing here yet :o</h3>
+                    {% if res %}
 
-                {% endif %}
+                    <div id="results-container">
 
+                        <div id="header">
+                            <h1>{{ res }}</h1>
+                            <h4>{{ cc_distance }}</h4>
+                        </div>
+
+                        <div id="data-layout">
+
+                            <div id="left-col">
+                                <div id="prices">
+
+                                    <div id="avg_price">
+                                        <h4>Average price per month:</h4>
+                                        <h1>{{ avg_cost }} €</h1>
+                                    </div>
+
+                                    <div id="chart-container">
+                                        <canvas id="expensesChart" width="400" height="400"></canvas>
+                                    </div>
+
+                                    <div id="avg_heating_price">
+                                        <h4>Average heating price per month:</h4>
+                                        <h2>{{ avg_heating_price }} €</h2>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="right-col">
+
+                                <div id="pie-container">
+                                    <canvas id="expensesPieChart" width="400" height="400"></canvas>
+                                </div>
+
+                                <div id="avg_area">
+                                    <h4>Average area:</h4>
+                                    <h2>{{ avg_area }} m²</h2>
+                                </div>
+
+                                <div id="avg_rooms_number">
+                                    <h4>Average number of crimes per month:</h4>
+                                    <h2>{{ avg_crime }}</h2>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div id="characteristics">
+
+                            <div id="pros">
+                                <h2>Positive aspects:</h2>
+                                {% for item in pros %}
+                                    <h3>• {{ item }}</h3>
+                                {% endfor %}
+                            </div>
+
+                            <div id="cons">
+                                <h2>Negative aspects:</h2>
+                                {% for item in cons %}
+                                    <h3>• {{ item }}</h3>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% else %}
+
+                    <h3>Nothing here yet :o</h3>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <!-- RIGHT: MAP -->
+            <div id="map-container">
+
+                <div id="map-overlay">
+                    <p>Loading map...</p>
+                </div>
+
+                <div id="map"></div>
             </div>
 
         </div>
-
-        <div id="mapinfo">
-            <div id="map"></div>
-        </div>
-
     </div>
 
     <script src="{{ url_for('static', filename='priorities.js') }}"></script>
@@ -155,21 +165,27 @@
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const mapDiv = document.getElementById('map');
-        const overlay = document.getElementById('page-overlay');
-
+        const mapOverlay = document.getElementById('map-overlay');
+        const resultsOverlay = document.getElementById('results-overlay');
         const imgSrc = "{{ url_for('static', filename='pics/' ~ res ~ '.png') }}";
 
-        overlay.classList.remove('hidden');
-
         mapDiv.style.backgroundImage = "url('" + imgSrc + "')";
-        renderChart();
 
         const img = new Image();
         img.src = imgSrc;
-
         img.onload = function () {
-            overlay.classList.add('hidden');
+            mapOverlay.style.opacity = '0';
+            setTimeout(() => mapOverlay.style.display = 'none', 500);
         };
+        img.onerror = function () {
+            mapOverlay.style.opacity = '0';
+            setTimeout(() => mapOverlay.style.display = 'none', 500);
+        };
+
+        renderChart(function onChartsReady() {
+            resultsOverlay.style.opacity = '0';
+            setTimeout(() => resultsOverlay.style.display = 'none', 500);
+        });
     });
     </script>
 
@@ -178,20 +194,27 @@
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const mapDiv = document.getElementById('map');
-        const overlay = document.getElementById('page-overlay');
-
+        const mapOverlay = document.getElementById('map-overlay');
+        const resultsOverlay = document.getElementById('results-overlay');
         const imgSrc = "{{ url_for('static', filename='pics/Kaunas_map.png') }}";
-
-        overlay.classList.remove('hidden');
 
         mapDiv.style.backgroundImage = "url('" + imgSrc + "')";
 
         const img = new Image();
         img.src = imgSrc;
-
         img.onload = function () {
-            overlay.classList.add('hidden');
+            mapOverlay.style.opacity = '0';
+            setTimeout(() => mapOverlay.style.display = 'none', 500);
         };
+        img.onerror = function () {
+            mapOverlay.style.opacity = '0';
+            setTimeout(() => mapOverlay.style.display = 'none', 500);
+        };
+
+        // No charts on empty state — hide results overlay immediately with no transition
+        resultsOverlay.style.transition = 'none';
+        resultsOverlay.style.opacity = '0';
+        setTimeout(() => resultsOverlay.style.display = 'none', 0);
     });
     </script>
 
