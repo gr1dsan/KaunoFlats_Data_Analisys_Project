@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -21,29 +21,40 @@
 
                     <div id="1st">
                         <h4>1st priority</h4>
-                        <select id="priority1" name="priority1">
-                            <option value="" selected disabled>Select a priority</option>
-                            {% for option in options %}
-                                <option value="{{ option }}">{{ option }}</option>
-                            {% endfor %}
-                        </select>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select-trigger" id="trigger1" tabindex="0">
+                                <span class="trigger-text" id="text1">Select a priority</span>
+                                <span class="chevron" id="chevron1">▾</span>
+                            </div>
+                            <div class="custom-select-dropdown" id="drop1">
+                                {% for option in options %}
+                                    <div class="dropdown-option" data-value="{{ option }}">{{ option }}</div>
+                                {% endfor %}
+                            </div>
+                            <input type="hidden" name="priority1" id="val1">
+                        </div>
                     </div>
 
                     <div id="2nd">
                         <h4>2nd priority</h4>
-                        <select id="priority2" name="priority2" disabled>
-                            <option value="None">--</option>
-                            {% for option in options %}
-                                <option value="{{ option }}">{{ option }}</option>
-                            {% endfor %}
-                        </select>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select-trigger disabled" id="trigger2" tabindex="-1">
+                                <span class="trigger-text" id="text2">--</span>
+                                <span class="chevron" id="chevron2">▾</span>
+                            </div>
+                            <div class="custom-select-dropdown" id="drop2">
+                                {% for option in options %}
+                                    <div class="dropdown-option" data-value="{{ option }}">{{ option }}</div>
+                                {% endfor %}
+                            </div>
+                            <input type="hidden" name="priority2" id="val2" value="None">
+                        </div>
                     </div>
 
                     <button id="okbutton" type="submit">Find</button>
                 </form>
             </div>
 
-            <!-- MIDDLE: RESULTS -->
             <div id="results-container-outer">
 
                 <div id="results-overlay">
@@ -132,7 +143,6 @@
                 </div>
             </div>
 
-            <!-- RIGHT: MAP -->
             <div id="map-container">
 
                 <div id="map-overlay">
@@ -147,6 +157,71 @@
 
     <script src="{{ url_for('static', filename='priorities.js') }}"></script>
     <script src="{{ url_for('static', filename='charts.js') }}"></script>
+
+    <script>
+    function makeDropdown(triggerId, dropId, textId, chevronId, valId, onSelect) {
+        const trigger = document.getElementById(triggerId);
+        const drop = document.getElementById(dropId);
+        const textEl = document.getElementById(textId);
+        const chevron = document.getElementById(chevronId);
+        const valEl = document.getElementById(valId);
+        let open = false;
+
+        function openDrop() {
+            if (trigger.classList.contains('disabled')) return;
+            open = true;
+            trigger.classList.add('open');
+            drop.classList.add('open');
+            chevron.classList.add('open');
+        }
+
+        function closeDrop() {
+            open = false;
+            trigger.classList.remove('open');
+            drop.classList.remove('open');
+            chevron.classList.remove('open');
+        }
+
+        trigger.addEventListener('click', () => open ? closeDrop() : openDrop());
+
+        trigger.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open ? closeDrop() : openDrop(); }
+            if (e.key === 'Escape') closeDrop();
+        });
+
+        drop.querySelectorAll('.dropdown-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                drop.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+                textEl.textContent = opt.dataset.value;
+                textEl.classList.add('selected');
+                valEl.value = opt.dataset.value;
+                closeDrop();
+                if (onSelect) onSelect(opt.dataset.value);
+            });
+        });
+
+        document.addEventListener('click', e => {
+            if (!trigger.contains(e.target) && !drop.contains(e.target)) closeDrop();
+        });
+    }
+
+    makeDropdown('trigger1', 'drop1', 'text1', 'chevron1', 'val1', function(val) {
+        const t2 = document.getElementById('trigger2');
+        t2.classList.remove('disabled');
+        t2.setAttribute('tabindex', '0');
+
+        document.getElementById('val2').value = '';
+        document.getElementById('text2').textContent = 'Select a priority';
+        document.getElementById('text2').classList.remove('selected');
+        document.getElementById('drop2').querySelectorAll('.dropdown-option').forEach(o => {
+            o.classList.remove('active');
+            o.style.display = o.dataset.value === val ? 'none' : '';
+        });
+    });
+
+    makeDropdown('trigger2', 'drop2', 'text2', 'chevron2', 'val2');
+    </script>
 
     {% if res %}
 
@@ -199,7 +274,6 @@
             setTimeout(() => mapOverlay.style.display = 'none', 500);
         };
 
-        // No charts on empty state — hide results overlay immediately with no transition
         resultsOverlay.style.transition = 'none';
         resultsOverlay.style.opacity = '0';
         setTimeout(() => resultsOverlay.style.display = 'none', 0);
